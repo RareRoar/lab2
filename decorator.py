@@ -6,4 +6,3 @@ def cashed(func):
             cash[args] = func(args)
         return cash[args]
     return cashed_func
-

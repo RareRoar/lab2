@@ -9,7 +9,7 @@ def create_file(name, quantity, min_value, max_value):
             new_file.write("{}\n".format(randint(min_value, max_value)))
 
 
-def external_sort(name, cluster_size):
+def external_sort(name, cluster_size, result_name):
     # slicing file
     with open("{}.txt".format(name), 'r') as sort_file:
         buffer_list = []
@@ -69,6 +69,6 @@ def external_sort(name, cluster_size):
         if path.isfile("temp{}.txt".format(count - 1)):
             rename("temp{}.txt".format(count - 1), "temp{}.txt".format(count // 2))
         count = count // 2 + count % 2
-    if path.isfile("sorted.txt"):
-        remove("sorted.txt")
-    rename("temp0.txt", "sorted.txt")
+    if path.isfile("{}.txt".format(result_name)):
+        remove("{}.txt".format(result_name))
+    rename("temp0.txt", "{}.txt".format(result_name))

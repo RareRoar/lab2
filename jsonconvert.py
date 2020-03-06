@@ -45,7 +45,10 @@ def _to_list(string):
         word += char
         if char == '\"':
             quot_flag = not quot_flag
-    result.append(word[2:])
+    if not result:
+        result.append(word)
+    else:
+        result.append(word[2:])
     return result
 
 
@@ -66,9 +69,9 @@ def _to_pair(string):
 
 
 def from_json(string):
-    if string[0] == '[':
+    if string[0] == '[' and string[-1] == ']':
         return [from_json(element) for element in _to_list(string[1:-1])]
-    if string[0] == '{':
+    if string[0] == '{' and string[-1] == '}':
         temp = [_to_pair(element) for element in _to_list(string[1:-1])]
         result = {from_json(element[0]): from_json(element[1]) for element in temp}
         return result
@@ -83,4 +86,3 @@ def from_json(string):
     if string.find('.') != -1:
         return float(string)
     return int(string)
-
